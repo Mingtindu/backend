@@ -1,0 +1,14 @@
+{
+  "name": "backend1.2",
+  "version": "1.0.0",
+  "description": "Backend series",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"node first.js"
+
+  },
+  "author": "Mingtindu",
+  "license": "ISC"
+}
