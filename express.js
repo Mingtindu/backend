@@ -4,8 +4,11 @@ import userRouter from "./routes/user.route.js";
 import propertyRoute from "./routes/property.route.js"
 import fileRouter from "./routes/file.route.js"
 import { connectDB } from "./config/db.js";
+import morgan from "morgan";
 connectDB()
 app.use(express.json());
+
+app.use(morgan("dev"));
 
 app.use("/users", userRouter);
 app.use("/file",fileRouter)

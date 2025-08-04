@@ -3,6 +3,10 @@ import { Property } from "../models/property.model.js";
 // Create Property
 export const createProperty = async (req, res) => {
   try {
+
+
+    req.body.owner = req.user.id;
+
     const property = await Property.create(req.body);
     res.status(201).json(property);
   } catch (error) {
@@ -13,7 +17,8 @@ export const createProperty = async (req, res) => {
 // Get All Properties
 export const getAllProperties = async (req, res) => {
   try {
-    const properties = await Property.find().populate("owner");
+    const userId = req.user.id;
+    const properties = await Property.find({owner:userId}).populate("owner");
     res.status(200).json(properties);
   } catch (error) {
     res.status(500).json({ message: error.message });
