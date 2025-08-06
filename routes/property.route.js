@@ -19,8 +19,8 @@ router.post(
 );
 router.get(
   "/",
-  authenticate,
-  authorizeRoles("admin", "owner", "tenant"),
+  // authenticate,
+  // authorizeRoles("admin", "owner", "tenant"),
   getAllProperties
 );
 router.get(
