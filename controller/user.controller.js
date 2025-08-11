@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { sendMail } from "../lib/email/sendEmail.js";
 import { welcomeAndVerifyEmailTemplate } from "../lib/email/templates/welcomeUser.js";
 import { uploadToCloudinary } from "../lib/email/cloudinary.js";
+import { Booking } from "../models/booking.model.js";
 
 const registeruser = async (req, res) => {
   try {
@@ -52,7 +53,7 @@ const registeruser = async (req, res) => {
       password: hashPassword,
       isVerified: false, // optional flag
       verificationToken: verificationToken, // Save the token
-      photo:image?.secure_url
+      photo: image?.secure_url,
     });
 
     res.status(201).json({
@@ -167,6 +168,24 @@ const emailVerify = async (req, res) => {
   }
 };
 
+const getMyBookings = async (req, res) => {
+  try {
+    console.log(req.user.id);
+    const booking = await Booking.find({ tenant: req.user.id })
+      .populate("property")
+      .populate("tenant");
+    if (!booking || booking.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No bookings found for this user" });
+    }
+    res.status(200).json(booking);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
 export {
   registeruser,
   getUser,
@@ -175,4 +194,5 @@ export {
   login,
   getMyProfile,
   emailVerify,
+  getMyBookings
 };

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   emailVerify,
+  getMyBookings,
   getMyProfile,
   getUser,
   getUserById,
@@ -30,6 +31,7 @@ router.route("/").post(
   ]),
   registeruser
 );
+router.get("/my-bookings", authenticate, getMyBookings);
 router.route("/login").post(login);
 router.route("/my-profile").get(authenticate, getMyProfile);
 
