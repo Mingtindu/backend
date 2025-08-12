@@ -16,6 +16,10 @@ app.use("/file",fileRouter)
 app.use("/property",propertyRoute);
 app.use("/booking",bookingRoute)
 
+app.use("/", (req, res) => {
+  res.send("Welcome to the Booking API");
+});
+
 app.listen(3000, (req, res) => {
   console.log(" app is running on port 3000");
 });
